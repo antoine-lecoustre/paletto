@@ -115,4 +115,9 @@ var Engine = function () {
         }
         return true;
     };
+
+    //Deuxieme histoire
+    this.choixCouleur = function(ligne, colonne){
+        return board[ligne][colonne];
+    }
 };

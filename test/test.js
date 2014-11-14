@@ -1,12 +1,19 @@
 'use strict';
 
 var PalettoTestCase = TestCase("PalettoTestCase");
-
+var e = new Engine();
+e.init();
 
 //Premiere histoire
 PalettoTestCase.prototype.test1 = function () {
-    var e = new Engine();
-    e.init();
+
 
     assertTrue(e.juxtaposition());
 };
+
+//Deuxieme histoire
+PalettoTestCase.prototype.test2 = function () {
+
+    assertTrue(e.choixCouleur(5,0) == 5);
+};
+
