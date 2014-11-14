@@ -19,6 +19,7 @@ PalettoTestCase.prototype.test2 = function () {
 
 //Troisieme histoire
 PalettoTestCase.prototype.test3 = function () {
+    e.removePiece("A6")
 
-    assertTrue(e.choixCouleur(5,0) == 5);
+    assertTrue();
 };

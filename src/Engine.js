@@ -4,6 +4,8 @@ var Engine = function () {
 
 // private attributes and methods
     var board = new Array(6);
+    var player1 = new Array(36);
+    var player2 = new Array(36);
 
 // public methods
 
@@ -20,6 +22,8 @@ var Engine = function () {
          * 3 = Bleu
          * 4 = Vert
          * 5 = Jaune
+         *
+         * -1 = element vide
          */
 
 
@@ -75,7 +79,6 @@ var Engine = function () {
 
     };
 
-    //Premiere histoire
     this.juxtaposition = function(){
         var ligne, colonne;
 
@@ -116,8 +119,41 @@ var Engine = function () {
         return true;
     };
 
-    //Deuxieme histoire
     this.choixCouleur = function(ligne, colonne){
         return board[ligne][colonne];
     }
+
+    this.removePiece = function (x, numberPlayer) {
+        if(numberPlayer == 1){
+            player1.push(board[x.charCodeAt(0) - 65][x.charAt(1) - 1]);
+        }else{
+            player2.push(board[x.charCodeAt(0) - 65][x.charAt(1) - 1]);
+        }
+
+        board[x.charCodeAt(0) - 65][x.charAt(1) - 1] = -1;
+    };
+
+    this.countPieceBoard = function(){
+        var n = 0;
+
+        for(var ligne=0;ligne<board.length;ligne++){
+            for(var colonne=0;colonne<board.length;colonne++){
+                if(board[ligne][colonne] != -1){
+                    n++;
+                }
+            }
+        }
+
+        return n;
+    }
+
+    this.getPiecesPlayer = function(numberPlayer){
+        if(numberPlayer == 1){
+            return player1;
+        }else{
+            return player2;
+        }
+    }
+
+
 };
