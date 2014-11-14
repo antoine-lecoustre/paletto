@@ -4,8 +4,8 @@ var Engine = function () {
 
 // private attributes and methods
     var board = new Array(6);
-    var player1 = new Array(36);
-    var player2 = new Array(36);
+    var player1 = new Array();
+    var player2 = new Array();
 
 // public methods
 
@@ -23,7 +23,6 @@ var Engine = function () {
          * 4 = Vert
          * 5 = Jaune
          *
-         * -1 = element vide
          */
 
 
@@ -121,7 +120,11 @@ var Engine = function () {
 
     this.choixCouleur = function(ligne, colonne){
         return board[ligne][colonne];
-    }
+    };
+
+    this.getPiece = function(x){
+        return board[x.charCodeAt(0) - 65][x.charAt(1) - 1];
+    };
 
     this.removePiece = function (x, numberPlayer) {
         if(numberPlayer == 1){
@@ -130,7 +133,7 @@ var Engine = function () {
             player2.push(board[x.charCodeAt(0) - 65][x.charAt(1) - 1]);
         }
 
-        board[x.charCodeAt(0) - 65][x.charAt(1) - 1] = -1;
+        board[x.charCodeAt(0) - 65][x.charAt(1) - 1] = undefined;
     };
 
     this.countPieceBoard = function(){
@@ -138,14 +141,14 @@ var Engine = function () {
 
         for(var ligne=0;ligne<board.length;ligne++){
             for(var colonne=0;colonne<board.length;colonne++){
-                if(board[ligne][colonne] != -1){
+                if(board[ligne][colonne] != undefined){
                     n++;
                 }
             }
         }
 
         return n;
-    }
+    };
 
     this.countPiecesPlayer = function(numberPlayer){
         if(numberPlayer == 1){
@@ -153,7 +156,81 @@ var Engine = function () {
         }else{
             return player2.filter(function(value) { return value !== undefined }).length;
         }
+    };
+
+    /*this.listOfPossibilites = function(pieceColor){
+        for(var i=0;i<board.length;i++){
+            for(var i=0;i<board.length;i++){
+
+                if(pieceColor == )
+            }
+        }
+    }*/
+
+    this.jouable = function(ligne,colonne){
+        var n = 0;
+        //var list = new array(4);
+
+        if(ligne+1 < 6)
+            if(board[ligne+1][colonne] != undefined)
+                n++;
+
+        if(ligne-1 >= 0)
+            if(board[ligne-1][colonne] != undefined)
+                n++;
+
+        if(colonne+1 < 6)
+            if(board[ligne][colonne+1] != undefined)
+                n++;
+
+        if(colonne-1 >= 0)
+            if(board[ligne][colonne-1] != undefined)
+                n++;
+
+        return (n<=2) ? true : false;
+
+    };
+
+    this.choiceColorPlayer = function(numberPlayer) {
+        var list = Array();
+
+        if (numberPlayer == 1) {
+            list.push(2);
+            list.push(4);
+            list.push(5);
+        } else {
+            list.push(1);
+            list.push(0);
+            list.push(3);
+        }
+
+        return list;
+    };
+
+    this.playPlayer = function(numberPlayer){
+        var possibilitiesPlayer = this.choiceColorPlayer(numberPlayer);
+
+        for(var ligne=0;ligne<board.length;ligne++){
+            for(var colonne=0;colonne<board.length;colonne++){
+                if(this.jouable(ligne,colonne)){
+                    if(board[ligne][colonne] == possibilitiesPlayer[0] || board[ligne][colonne] == possibilitiesPlayer[1] || board[ligne][colonne] == possibilitiesPlayer[2]){
+                        console.log("(" + ligne + "," + colonne + ") => " + board[ligne][colonne]);
+                        if(numberPlayer == 1){
+                            player1.push(board[ligne][colonne]);
+                        }else{
+                            player2.push(board[ligne][colonne]);
+                        }
+
+                        board[ligne][colonne] = undefined;
+                    }
+                }
+            }
+        }
     }
+
+
+
+
 
 
 };
