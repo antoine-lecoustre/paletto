@@ -4,6 +4,7 @@ var PalettoTestCase = TestCase("PalettoTestCase");
 
 PalettoTestCase.prototype.testStory1 = function () {
     var e = new Engine();
+    e.init();
 
-    assert(g.juxtaposition() == true);
+    assert(e.juxtaposition() == true);
 };
