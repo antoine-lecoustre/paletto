@@ -65,11 +65,19 @@ var Engine = function () {
         board[5][4] = 4;
         board[5][5] = 1;
 
+        for(var i=0;i<board.length;i++){
+            var ret = "";
+            for(var j=0;j<board.length;j++){
+                ret += board[i][j] + "\t";
+            }
+            console.log(ret);
+        }
+
     };
 
     //Premiere histoire
     this.juxtaposition = function(){
-        var i, ligne, colonne;
+        var ligne, colonne;
 
 
 
@@ -77,21 +85,27 @@ var Engine = function () {
             for (colonne = 0; colonne < board.length; colonne++) {
 
                 if(colonne+1 < 6){
-                    if(board[ligne][colonne] = board[ligne][colonne+1]){
+                    if(board[ligne][colonne] == board[ligne][colonne+1]){
                         return false;
                     }
 
-                }else if(colonne-1 > 0 ){
-                    if(board[ligne][colonne] = board[ligne][colonne-1]){
+                }
+
+                if(colonne-1 > 0 ){
+                    if(board[ligne][colonne] == board[ligne][colonne-1]){
                         return false;
                     }
-                }else if(ligne+1 < 6){
-                    if(board[ligne][colonne] = board[ligne+1][colonne]){
+                }
+
+                if(ligne+1 < 6){
+                    if(board[ligne][colonne] == board[ligne+1][colonne]){
                         return false;
                     }
 
-                }else if(ligne-1 > 0 ){
-                    if(board[ligne][colonne] = board[ligne-1][colonne]){
+                }
+
+                if(ligne-1 > 0 ){
+                    if(board[ligne][colonne] == board[ligne-1][colonne]){
                         return false;
                     }
                 }
@@ -99,5 +113,6 @@ var Engine = function () {
 
             }
         }
+        return true;
     };
 };
