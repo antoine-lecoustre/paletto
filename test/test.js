@@ -19,7 +19,9 @@ PalettoTestCase.prototype.test2 = function () {
 
 //Troisieme histoire
 PalettoTestCase.prototype.test3 = function () {
-    e.removePiece("A6")
+    e.removePiece("A6",1);
 
-    assertTrue();
+
+    assertTrue(e.countPieceBoard() == 35);
+    assertTrue(e.countPiecesPlayer(1) == 1);
 };

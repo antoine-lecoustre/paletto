@@ -147,11 +147,11 @@ var Engine = function () {
         return n;
     }
 
-    this.getPiecesPlayer = function(numberPlayer){
+    this.countPiecesPlayer = function(numberPlayer){
         if(numberPlayer == 1){
-            return player1;
+            return player1.filter(function(value) { return value !== undefined }).length;
         }else{
-            return player2;
+            return player2.filter(function(value) { return value !== undefined }).length;
         }
     }
 
