@@ -238,19 +238,19 @@ var Engine = function () {
         return (n===2) ? true : false;
     }
 
-    this.playerRemovePiece = function(ligne,colonne, player){
+    this.playerRemovePiece = function(x, player){
         var cp = e.colorPlayer(player);
 
         if(e.neighbor(0,0,cp)){
 
 
             if(player === 1){
-                player1.push(board[ligne][colonne]);
+                player1.push(board[x.charAt(1) - 1][x.charCodeAt(0) - 65]);
             }else{
-                player2.push(board[ligne][colonne]);
+                player2.push(board[x.charAt(1) - 1][x.charCodeAt(0) - 65]);
             }
 
-            board[ligne][colonne] = undefined;
+            board[x.charAt(1) - 1][x.charCodeAt(0) - 65] = undefined;
             return true;
         }else{
             return false;

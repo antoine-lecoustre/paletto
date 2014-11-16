@@ -27,8 +27,8 @@ PalettoTestCase.prototype.test3 = function () {
 
 PalettoTestCase.prototype.test4 = function () {
 
-    assertTrue(e.playerRemovePiece(0,0,2) == true);
-    assertTrue(e.playerRemovePiece(5,5,2) == true);
+    assertTrue(e.playerRemovePiece("A1",2) == true);
+    assertTrue(e.playerRemovePiece("F6",2) == true);
 
     assertTrue(e.countPieceBoard() == 33);
     assertTrue(e.countPiecesPlayer(2) == 2);
