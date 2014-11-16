@@ -22,7 +22,6 @@ var Engine = function () {
          * 3 = Bleu
          * 4 = Vert
          * 5 = Jaune
-         *
          */
 
 
@@ -68,13 +67,6 @@ var Engine = function () {
         board[5][4] = 4;
         board[5][5] = 1;
 
-        /*for(var i=0;i<board.length;i++){
-         var ret = "";
-         for(var j=0;j<board.length;j++){
-         ret += board[i][j] + "\t";
-         }
-         console.log(ret);
-         }*/
 
     };
 
@@ -273,7 +265,8 @@ var Engine = function () {
                 }
             }
         }
-        return n;
+
+        return (n===6) ? true : false;
     }
 
 
