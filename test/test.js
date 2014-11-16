@@ -80,3 +80,63 @@ PalettoTestCase.prototype.test6 = function () {
 
 }
 
+PalettoTestCase.prototype.test7 = function () {
+    e.removePiece("A1",1);
+    e.removePiece("F6",1);
+
+    e.removePiece("A2",2);
+    e.removePiece("A6",2);
+
+    e.removePiece("A5",1);
+    e.removePiece("F6",1);
+
+    e.removePiece("E6",2);
+    e.removePiece("B1",2);
+    e.removePiece("F5",2);
+
+    e.removePiece("A3",1);
+    e.removePiece("F2",1);
+
+    e.removePiece("C1",2);
+    e.removePiece("F4",2);
+
+    e.removePiece("E1",1);
+    e.removePiece("D6",1);
+    e.removePiece("A4",1);
+    e.removePiece("F3",1);
+
+    e.removePiece("D1",2);
+    e.removePiece("B6",2);
+
+    e.removePiece("E2",1);
+    e.removePiece("E5",1);
+
+    e.removePiece("C6",2);
+    e.removePiece("D5",2);
+    e.removePiece("E3",2);
+
+    e.removePiece("B5",1);
+
+    e.removePiece("D2",2);
+
+    e.removePiece("B2",1);
+    e.removePiece("D3",1);
+
+    e.removePiece("E4",2);
+
+    e.removePiece("C5",1);
+    e.removePiece("B3",1);
+
+    e.removePiece("D4",2);
+    e.removePiece("C2",2);
+
+    e.removePiece("C3",1);
+
+    e.removePiece("B4",2);
+
+
+    e.removePiece("C4",1);
+
+    assertTrue(e.getWinner() === 1);
+}
+

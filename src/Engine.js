@@ -132,13 +132,13 @@ var Engine = function () {
             player2.push(board[x.charAt(1) - 1][x.charCodeAt(0) - 65]);
         }
 
-        if(e.countPieceBoard() === 1){
-            playerWin = numberPlayer;
-        }
+
 
         board[x.charAt(1) - 1][x.charCodeAt(0) - 65] = undefined;
 
-
+        if(e.countPieceBoard() === 0){
+            playerWin = numberPlayer;
+        }
     };
 
     this.countPieceBoard = function(){
@@ -276,10 +276,8 @@ var Engine = function () {
         return (n===6) ? true : false;
     }
 
-    this.removeLastPiece = function(){
-        if(this.countPieceBoard() === 1){
-
-        }
+    this.getWinner = function(){
+        return playerWin;
     }
 
 
