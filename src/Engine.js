@@ -257,7 +257,24 @@ var Engine = function () {
         }
     }
 
+    this.winGame = function(player){
+        var n = 0;
 
+        if(player === 1){
+            for(var i=0;i<player1.length;i++){
+                if(player1[i] === 1){
+                    n++
+                }
+            }
+        }else if(player === 2){
+            for(var i=0;i<player2.length;i++){
+                if(player2s[i] === 1){
+                    n++
+                }
+            }
+        }
+        return n;
+    }
 
 
 

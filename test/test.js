@@ -25,6 +25,7 @@ PalettoTestCase.prototype.test3 = function () {
     assertTrue(e.countPiecesPlayer(1) == 1);
 }
 
+//Quatrième histoire
 PalettoTestCase.prototype.test4 = function () {
 
     assertTrue(e.playerRemovePiece("A1",2) == true);
