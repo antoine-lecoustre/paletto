@@ -139,3 +139,7 @@ PalettoTestCase.prototype.test7 = function () {
 
     assertTrue(e.getWinner() === 1);
 };
+
+PalettoTestCase.prototype.test7 = function () {
+    assertTrue(e.removeRandomPiece(1));
+}

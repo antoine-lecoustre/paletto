@@ -242,4 +242,26 @@ var Engine = function () {
     this.getWinner = function() {
         return playerWin;
     }
+
+    this.removeRandomPiece = function(numberPlayer){
+        var random = Math.floor(Math.random() * 6);
+
+        for(var ligne=0;ligne<board.length;ligne++){
+            for(var colonne=0;colonne<board.length;colonne++){
+                if(random === board[ligne][colonne]){
+                    if(numberPlayer === 1){
+                        player1.push(board[ligne][colonne]);
+                    }else{
+                        player2.push(board[ligne][colonne]);
+                    }
+
+                    board[ligne][colonne] = undefined;
+
+                    if(e.countPieceBoard() === 0){
+                        playerWin = numberPlayer;
+                    }
+                }
+            }
+        }
+    }
 };
