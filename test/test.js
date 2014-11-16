@@ -79,3 +79,4 @@ PalettoTestCase.prototype.test6 = function () {
 
 
 }
+

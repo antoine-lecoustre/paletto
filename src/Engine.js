@@ -6,6 +6,7 @@ var Engine = function () {
     var board = new Array(6);
     var player1 = new Array();
     var player2 = new Array();
+    var playerWin;
 
 // public methods
 
@@ -131,7 +132,13 @@ var Engine = function () {
             player2.push(board[x.charAt(1) - 1][x.charCodeAt(0) - 65]);
         }
 
+        if(e.countPieceBoard() === 1){
+            playerWin = numberPlayer;
+        }
+
         board[x.charAt(1) - 1][x.charCodeAt(0) - 65] = undefined;
+
+
     };
 
     this.countPieceBoard = function(){
@@ -269,7 +276,11 @@ var Engine = function () {
         return (n===6) ? true : false;
     }
 
+    this.removeLastPiece = function(){
+        if(this.countPieceBoard() === 1){
 
+        }
+    }
 
 
 };
