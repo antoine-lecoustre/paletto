@@ -68,6 +68,17 @@ var Engine = function () {
         board[5][4] = 4;
         board[5][5] = 1;
 
+        /*for(var i=0;i<board.length;i++){
+         var ret = "";
+         for(var j=0;j<board.length;j++){
+         ret += board[i][j] + "\t";
+         }
+         console.log(ret);
+         }*/
+
+    };
+
+    this.display = function(){
         for(var i=0;i<board.length;i++){
             var ret = "";
             for(var j=0;j<board.length;j++){
@@ -75,8 +86,7 @@ var Engine = function () {
             }
             console.log(ret);
         }
-
-    };
+    }
 
     this.juxtaposition = function(){
         var ligne, colonne;
@@ -118,22 +128,18 @@ var Engine = function () {
         return true;
     };
 
-    this.choixCouleur = function(ligne, colonne){
-        return board[ligne][colonne];
-    };
-
     this.getPiece = function(x){
-        return board[x.charCodeAt(0) - 65][x.charAt(1) - 1];
-    };
+        return board[x.charAt(1) - 1][x.charCodeAt(0) - 65]
+    }
 
     this.removePiece = function (x, numberPlayer) {
-        if(numberPlayer == 1){
-            player1.push(board[x.charCodeAt(0) - 65][x.charAt(1) - 1]);
+        if(numberPlayer === 1){
+            player1.push(board[x.charAt(1) - 1][x.charCodeAt(0) - 65]);
         }else{
-            player2.push(board[x.charCodeAt(0) - 65][x.charAt(1) - 1]);
+            player2.push(board[x.charAt(1) - 1][x.charCodeAt(0) - 65]);
         }
 
-        board[x.charCodeAt(0) - 65][x.charAt(1) - 1] = undefined;
+        board[x.charAt(1) - 1][x.charCodeAt(0) - 65] = undefined;
     };
 
     this.countPieceBoard = function(){
@@ -151,47 +157,14 @@ var Engine = function () {
     };
 
     this.countPiecesPlayer = function(numberPlayer){
-        if(numberPlayer == 1){
+        if(numberPlayer === 1){
             return player1.filter(function(value) { return value !== undefined }).length;
         }else{
             return player2.filter(function(value) { return value !== undefined }).length;
         }
     };
 
-    /*this.listOfPossibilites = function(pieceColor){
-        for(var i=0;i<board.length;i++){
-            for(var i=0;i<board.length;i++){
-
-                if(pieceColor == )
-            }
-        }
-    }*/
-
-    this.jouable = function(ligne,colonne){
-        var n = 0;
-        //var list = new array(4);
-
-        if(ligne+1 < 6)
-            if(board[ligne+1][colonne] != undefined)
-                n++;
-
-        if(ligne-1 >= 0)
-            if(board[ligne-1][colonne] != undefined)
-                n++;
-
-        if(colonne+1 < 6)
-            if(board[ligne][colonne+1] != undefined)
-                n++;
-
-        if(colonne-1 >= 0)
-            if(board[ligne][colonne-1] != undefined)
-                n++;
-
-        return (n<=2) ? true : false;
-
-    };
-
-    this.choiceColorPlayer = function(numberPlayer) {
+    this.colorPlayer = function(numberPlayer) {
         var list = Array();
 
         if (numberPlayer == 1) {
@@ -207,24 +180,80 @@ var Engine = function () {
         return list;
     };
 
-    this.playPlayer = function(numberPlayer){
-        var possibilitiesPlayer = this.choiceColorPlayer(numberPlayer);
+    this.neighborColorPiece = function(ligne, colonne, cp){
+        var currentPiece = board[ligne][colonne];
 
-        for(var ligne=0;ligne<board.length;ligne++){
-            for(var colonne=0;colonne<board.length;colonne++){
-                if(this.jouable(ligne,colonne)){
-                    if(board[ligne][colonne] == possibilitiesPlayer[0] || board[ligne][colonne] == possibilitiesPlayer[1] || board[ligne][colonne] == possibilitiesPlayer[2]){
-                        console.log("(" + ligne + "," + colonne + ") => " + board[ligne][colonne]);
-                        if(numberPlayer == 1){
-                            player1.push(board[ligne][colonne]);
-                        }else{
-                            player2.push(board[ligne][colonne]);
-                        }
+        if(currentPiece != cp[0] && currentPiece != cp[1] && currentPiece != cp[2]){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-                        board[ligne][colonne] = undefined;
-                    }
+    this.neighbor = function(ligne, colonne, cp){
+        var n = 0;
+
+
+        if(colonne+1 < 6){
+            if(board[ligne][colonne+1] != undefined){
+                if(this.neighborColorPiece(ligne,colonne+1,cp)){
+                    //console.log("gauche :" + board[ligne][colonne+1]);
+                    n++;
                 }
             }
+
+        }
+
+        if(colonne-1 > 0 ){
+            if(board[ligne][colonne-1] != undefined){
+                if(this.neighborColorPiece(ligne,colonne-1,cp)){
+                    //console.log("droite :" + board[ligne][colonne-1]);
+                    n++;
+                }
+            }
+
+        }
+
+        if(ligne+1 < 6){
+            if(board[ligne+1][colonne] != undefined){
+                if(this.neighborColorPiece(ligne+1,colonne,cp)){
+                    //console.log("bas :" + board[ligne+1][colonne]);
+                    n++;
+                }
+            }
+
+
+        }
+
+        if(ligne-1 > 0 ){
+            if(board[ligne-1][colonne] != undefined){
+                if(this.neighborColorPiece(ligne-1,colonne,cp)){
+                    //console.log("haut :" + board[ligne-1][colonne]);
+                    n++;
+                }
+            }
+
+        }
+
+        return (n===2) ? true : false;
+    }
+
+    this.playerRemovePiece = function(ligne,colonne, player){
+        var cp = e.colorPlayer(player);
+
+        if(e.neighbor(0,0,cp)){
+
+
+            if(player === 1){
+                player1.push(board[ligne][colonne]);
+            }else{
+                player2.push(board[ligne][colonne]);
+            }
+
+            board[ligne][colonne] = undefined;
+            return true;
+        }else{
+            return false;
         }
     }
 
