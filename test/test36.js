@@ -138,5 +138,4 @@ PalettoTestCase.prototype.test7 = function () {
     e.removePiece("C4",1);
 
     assertTrue(e.getWinner() === 1);
-}
-
+};
