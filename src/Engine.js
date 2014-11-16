@@ -3,7 +3,7 @@
 var Engine = function () {
 
 // private attributes and methods
-    var board = new Array(6);
+    var board = new Array(8);
     var player1 = new Array();
     var player2 = new Array();
     var playerWin;
@@ -14,7 +14,7 @@ var Engine = function () {
         var ligne;
 
         for (ligne = 0; ligne < board.length; ligne++) {
-            board[ligne] = new Array(6);
+            board[ligne] = new Array(8);
         }
 
         /* 0 = blanc
@@ -26,48 +26,11 @@ var Engine = function () {
          */
 
 
-        board[0][0] = 1;
-        board[0][1] = 4;
-        board[0][2] = 0;
-        board[0][3] = 3;
-        board[0][4] = 2;
-        board[0][5] = 0;
-
-        board[1][0] = 5;
-        board[1][1] = 0;
-        board[1][2] = 4;
-        board[1][3] = 2;
-        board[1][4] = 5;
-        board[1][5] = 3;
-
-        board[2][0] = 3;
-        board[2][1] = 5;
-        board[2][2] = 3;
-        board[2][3] = 0;
-        board[2][4] = 1;
-        board[2][5] = 2;
-
-        board[3][0] = 2;
-        board[3][1] = 1;
-        board[3][2] = 2;
-        board[3][3] = 4;
-        board[3][4] = 3;
-        board[3][5] = 0;
-
-        board[4][0] = 0;
-        board[4][1] = 4;
-        board[4][2] = 5;
-        board[4][3] = 1;
-        board[4][4] = 5;
-        board[4][5] = 4;
-
-        board[5][0] = 5;
-        board[5][1] = 3;
-        board[5][2] = 1;
-        board[5][3] = 2;
-        board[5][4] = 4;
-        board[5][5] = 1;
-
+        for(var ligne=0;ligne<board.length;ligne++){
+            for(var colonne=0;colonne<board.length;colonne++){
+                board[ligne][colonne] = Math.floor(Math.random() * 9);
+            }
+        }
 
     };
 
@@ -89,7 +52,7 @@ var Engine = function () {
         for (ligne = 0; ligne < board.length; ligne++) {
             for (colonne = 0; colonne < board.length; colonne++) {
 
-                if(colonne+1 < 6){
+                if(colonne+1 < 8){
                     if(board[ligne][colonne] == board[ligne][colonne+1]){
                         return false;
                     }
@@ -102,7 +65,7 @@ var Engine = function () {
                     }
                 }
 
-                if(ligne+1 < 6){
+                if(ligne+1 < 8){
                     if(board[ligne][colonne] == board[ligne+1][colonne]){
                         return false;
                     }
@@ -132,13 +95,13 @@ var Engine = function () {
             player2.push(board[x.charAt(1) - 1][x.charCodeAt(0) - 65]);
         }
 
-        if(e.countPieceBoard() === 1){
-            playerWin = numberPlayer;
-        }
+
 
         board[x.charAt(1) - 1][x.charCodeAt(0) - 65] = undefined;
 
-
+        if(e.countPieceBoard() === 0){
+            playerWin = numberPlayer;
+        }
     };
 
     this.countPieceBoard = function(){
@@ -267,7 +230,7 @@ var Engine = function () {
             }
         }else if(player === 2){
             for(var i=0;i<player2.length;i++){
-                if(player2s[i] === 1){
+                if(player2[i] === 1){
                     n++
                 }
             }
@@ -276,9 +239,29 @@ var Engine = function () {
         return (n===6) ? true : false;
     }
 
-    this.removeLastPiece = function(){
-        if(this.countPieceBoard() === 1){
+    this.getWinner = function(){
+        return playerWin;
+    }
 
+    this.removeRandomPiece = function(numberPlayer){
+        var random = Math.floor(Math.random() * 6);
+
+        for(var ligne=0;ligne<board.length;ligne++){
+            for(var colonne=0;colonne<board.length;colonne++){
+                if(random === board[ligne][colonne]){
+                    if(numberPlayer === 1){
+                        player1.push(board[ligne][colonne]);
+                    }else{
+                        player2.push(board[ligne][colonne]);
+                    }
+
+                    board[ligne][colonne] = undefined;
+
+                    if(e.countPieceBoard() === 0){
+                        playerWin = numberPlayer;
+                    }
+                }
+            }
         }
     }
 
